@@ -67,10 +67,10 @@ def tiles_from_dir(root, cover=None, xyz=True, xyz_path=False):
     root = os.path.expanduser(root)
 
     if xyz is True:
-        paths = glob.glob(os.path.join(root, "[0-9]*/[0-9]*/[0-9]*.*"))
+        paths = glob.glob(f'{root}/*/*/*')
 
         for path in paths:
-            tile_xyz = re.match(os.path.join(root, "(?P<z>[0-9]+)/(?P<x>[0-9]+)/(?P<y>[0-9]+).+"), path)
+            tile_xyz = re.match(os.path.join(root, "(?P<z>[0-9]+)/(?P<x>-?[0-9]+)/(?P<y>-?[0-9]+).+"), path)
             if not tile_xyz:
                 continue
             tile = mercantile.Tile(int(tile_xyz["x"]), int(tile_xyz["y"]), int(tile_xyz["z"]))
